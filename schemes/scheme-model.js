@@ -4,10 +4,14 @@ const find = () => {
   return db('schemes')
 }
 
-const findById = id => {
-  const d = db('schemes').where('id', '=', id).null
-  d.then(a => console.log(a)).catch(b => console.log(b))
-  return d
+const findById = async id => {
+  try {
+    const scheme = await db('schemes').where('id', '=', id)
+    if (scheme.length === 0) return null
+    else return scheme
+  } catch (error) {
+    return error
+  }
 }
 
 module.exports = ({ find, findById })
