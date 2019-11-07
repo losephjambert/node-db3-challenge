@@ -4,4 +4,10 @@ const find = () => {
   return db('schemes')
 }
 
-module.exports = ({ find })
+const findById = id => {
+  const d = db('schemes').where('id', '=', id).null
+  d.then(a => console.log(a)).catch(b => console.log(b))
+  return d
+}
+
+module.exports = ({ find, findById })
