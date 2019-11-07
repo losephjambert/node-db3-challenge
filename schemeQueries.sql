@@ -6,4 +6,4 @@
 
 -- insert into schemes (scheme_name) values ('Learn More SQL');
 
-select * from schemes;
+select * from steps;
