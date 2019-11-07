@@ -15,16 +15,13 @@ const findById = async id => {
 }
 
 const findSteps = async id => {
-  console.log(id)
   try {
     const steps = await db('steps')
       .join('schemes', 'schemes.id', '=', 'steps.scheme_id')
       .where('steps.scheme_id', '=', id)
       .select('steps.id', 'steps.step_number', 'steps.instructions', 'schemes.scheme_name')
-    console.log('steps', steps)
     return steps
   } catch (error) {
-    console.log(error)
     return error
   }
 }
@@ -60,4 +57,18 @@ const remove = async id => {
   }
 }
 
-module.exports = ({ find, findById, findSteps, add, update, remove })
+const addStep = async (stepData, schemeId) => {
+  const step = {
+    ...stepData,
+    scheme_id: schemeId
+  }
+
+  try {
+    const insertStep = await db('steps').insert(step)
+    return insertStep
+  } catch (error) {
+    return error
+  }
+}
+
+module.exports = ({ find, findById, findSteps, add, update, remove, addStep })
