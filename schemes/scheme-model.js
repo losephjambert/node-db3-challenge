@@ -14,4 +14,19 @@ const findById = async id => {
   }
 }
 
-module.exports = ({ find, findById })
+const findSteps = async id => {
+  console.log(id)
+  try {
+    const steps = await db('steps')
+      .join('schemes', 'schemes.id', '=', 'steps.scheme_id')
+      .where('steps.scheme_id', '=', id)
+      .select('steps.id', 'steps.step_number', 'steps.instructions', 'schemes.scheme_name')
+    console.log('steps', steps)
+    return steps
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
+module.exports = ({ find, findById, findSteps })
