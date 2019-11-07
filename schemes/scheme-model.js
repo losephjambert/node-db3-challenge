@@ -39,4 +39,15 @@ const add = async schemeData => {
   }
 }
 
-module.exports = ({ find, findById, findSteps, add })
+const update = async (changes, id) => {
+  try {
+    const updateScheme = await db('schemes').where('id', '=', id).update(changes)
+    const updatedScheme = updateScheme &&
+      await db('schemes').where('id', '=', id).first()
+    return updatedScheme
+  } catch (error) {
+    return error
+  }
+}
+
+module.exports = ({ find, findById, findSteps, add, update })
