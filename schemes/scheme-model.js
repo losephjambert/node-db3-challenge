@@ -50,4 +50,14 @@ const update = async (changes, id) => {
   }
 }
 
-module.exports = ({ find, findById, findSteps, add, update })
+const remove = async id => {
+  try {
+    return await db('schemes')
+      .where('id', '=', id)
+      .del()
+  } catch (error) {
+    return error
+  }
+}
+
+module.exports = ({ find, findById, findSteps, add, update, remove })
